@@ -9,14 +9,13 @@ const connectDB = async () => {
   const allowFallback = process.env.USE_IN_MEMORY_FALLBACK !== 'false';
 
   try {
-    console.log(`[DB] Attempting connection to MongoDB at: ${uri}`);
-    await mongoose.connect(uri, {
+    console.log("[DB] Connecting to MongoDB..."); await mongoose.connect(uri, {
       serverSelectionTimeoutMS: 2500,
     });
     console.log(`[DB] MongoDB Connected Successfully: ${mongoose.connection.host}`);
   } catch (err) {
     console.warn(`[DB] Direct MongoDB connection failed (${err.message}).`);
-    
+
     if (allowFallback) {
       console.log('[DB] Launching embedded MongoDB Memory Server for seamless local execution...');
       try {
